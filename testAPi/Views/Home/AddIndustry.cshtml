@@ -1,0 +1,80 @@
+﻿@model testAPi.Models.Industry
+
+@{
+    ViewBag.Title = "AddIndustry";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th class="text-center" style="background-color:red;color:white;" colspan="2">
+                    Add Industry
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    Name
+                </td>
+                <td>
+                    <input type="text" name="name" class="form-control" id="name"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Designation</td>
+                <td>
+                    <input type="text" name="designation" id="designation" class="form-control"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Salary</td>
+                <td>
+                    <input type="number" class="form-control" id="salary" name="salary"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <input type="button" class="btn btn-danger col-md-offset-3" value="Add" onclick="AddIndustry()"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+    
+    
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    
+    function AddIndustry() {
+        debugger;
+        var Name = $("#name").val();
+        var Designation = $("#designation").val();
+        var Salary = $("#salary").val();
+
+        $.ajax({
+            type: "POST",
+            url: 'http://127.0.0.1:8000/api/createindustry',
+            data: { name: Name, designation: Designation, salary: Salary },
+            success: function (res) {
+                alert("Data submitted");
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
+            },
+            error: function () {
+                toastr.error("Dynamic content load failed.");
+            }
+        });
+    }
+</script>
